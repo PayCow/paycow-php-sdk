@@ -5,23 +5,10 @@ namespace PayCow\Http;
 use PayCow\Exceptions\ApiException;
 use PayCow\Exceptions\AuthenticationException;
 
-/**
- * Standard cURL-based HTTP client.
- */
 class CurlHttpClient implements HttpClientInterface
 {
-    /**
-     * Send an HTTP request via cURL.
-     *
-     * @param string $method
-     * @param string $url
-     * @param array $headers
-     * @param string|null $body
-     * @param int $timeout
-     * @return Response
-     * @throws ApiException
-     * @throws AuthenticationException
-     */
+
+
     public function request(string $method, string $url, array $headers = [], ?string $body = null, int $timeout = 20): Response
     {
         $ch = curl_init();
@@ -70,7 +57,7 @@ class CurlHttpClient implements HttpClientInterface
                     $msg = $json['msg'];
                 }
             } catch (ApiException $e) {
-                // Ignore parse error and keep default msg
+
             }
             throw new AuthenticationException($msg, 401, $rawBody);
         }
@@ -85,7 +72,7 @@ class CurlHttpClient implements HttpClientInterface
                     $msg = $json['error'];
                 }
             } catch (ApiException $e) {
-                // Ignore parse error and keep default msg
+
             }
             throw new ApiException($msg, $statusCode, $rawBody);
         }

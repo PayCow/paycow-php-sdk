@@ -2,9 +2,6 @@
 
 namespace PayCow\Payments;
 
-/**
- * Immutable model representing a created PayCow payment session.
- */
 class PaymentSession
 {
     protected string $sessionId;
@@ -19,17 +16,14 @@ class PaymentSession
     protected bool $isIdempotentReplay;
     protected array $raw;
 
-    /**
-     * Constructor.
-     *
-     * @param array $data
-     */
+
+
     public function __construct(array $data)
     {
         $this->sessionId = (string) ($data['sessionId'] ?? '');
         $this->paymentUrl = (string) ($data['paymentUrl'] ?? '');
         $this->paymentReference = (string) ($data['paymentReference'] ?? '');
-        // Keep string representation for precision-safe money handling
+
         $this->amountRequested = isset($data['amountRequested']) ? (string) $data['amountRequested'] : '0';
         $this->payableAmount = isset($data['payableAmount']) ? (string) $data['payableAmount'] : (isset($data['amount']) ? (string) $data['amount'] : $this->amountRequested);
         $this->depositAddress = (string) ($data['depositAddress'] ?? '');

@@ -19,9 +19,6 @@
     "autoload": {
         "psr-4": {
             "PayCow\\": "src/"
-        },
-        "files": [
-            "autoload.php"
-        ]
+        }
     }
 }

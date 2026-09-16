@@ -2,9 +2,6 @@
 
 namespace PayCow\Webhooks;
 
-/**
- * Normalized model representing a verified PayCow webhook event.
- */
 class WebhookEvent
 {
     protected string $id;
@@ -14,11 +11,8 @@ class WebhookEvent
     protected array $data;
     protected array $raw;
 
-    /**
-     * Constructor.
-     *
-     * @param array $payload
-     */
+
+
     public function __construct(array $payload)
     {
         $this->id = (string) ($payload['id'] ?? '');
@@ -94,21 +88,15 @@ class WebhookEvent
         return isset($this->data['status']) ? strtoupper((string) $this->data['status']) : null;
     }
 
-    /**
-     * Get requested base amount (as decimal string to prevent float precision loss).
-     *
-     * @return string|null
-     */
+
+
     public function getAmountRequested(): ?string
     {
         return isset($this->data['amountRequested']) ? (string) $this->data['amountRequested'] : null;
     }
 
-    /**
-     * Get payable amount with micro-delta (as decimal string).
-     *
-     * @return string|null
-     */
+
+
     public function getPayableAmount(): ?string
     {
         if (isset($this->data['payableAmount'])) {
@@ -117,11 +105,8 @@ class WebhookEvent
         return $this->getAmountRequested();
     }
 
-    /**
-     * Get amount received on-chain (as decimal string).
-     *
-     * @return string|null
-     */
+
+
     public function getAmountReceived(): ?string
     {
         return isset($this->data['amountReceived']) ? (string) $this->data['amountReceived'] : null;
@@ -142,11 +127,8 @@ class WebhookEvent
         return isset($this->data['depositAddress']) ? (string) $this->data['depositAddress'] : null;
     }
 
-    /**
-     * Get on-chain blockchain transaction hash.
-     *
-     * @return string|null
-     */
+
+
     public function getTransactionHash(): ?string
     {
         return !empty($this->data['txHash']) ? (string) $this->data['txHash'] : null;

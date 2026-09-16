@@ -4,22 +4,14 @@ namespace PayCow\Http;
 
 use PayCow\Exceptions\ApiException;
 
-/**
- * Standard HTTP Response wrapper.
- */
 class Response
 {
     protected int $statusCode;
     protected string $body;
     protected array $headers;
 
-    /**
-     * Constructor.
-     *
-     * @param int $statusCode
-     * @param string $body
-     * @param array $headers
-     */
+
+
     public function __construct(int $statusCode, string $body, array $headers = [])
     {
         $this->statusCode = $statusCode;
@@ -47,12 +39,8 @@ class Response
         return $this->statusCode >= 200 && $this->statusCode < 300;
     }
 
-    /**
-     * Decode JSON body into an associative array.
-     *
-     * @return array
-     * @throws ApiException If body is not valid JSON.
-     */
+
+
     public function json(): array
     {
         $decoded = json_decode($this->body, true);

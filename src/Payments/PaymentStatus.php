@@ -2,9 +2,6 @@
 
 namespace PayCow\Payments;
 
-/**
- * Immutable model representing payment status details returned by GET /api/payment/status/:id.
- */
 class PaymentStatus
 {
     protected string $sessionId;
@@ -23,16 +20,13 @@ class PaymentStatus
     protected ?string $createdAt;
     protected array $raw;
 
-    /**
-     * Constructor.
-     *
-     * @param array $data
-     */
+
+
     public function __construct(array $data)
     {
         $this->sessionId = (string) ($data['sessionId'] ?? '');
         $this->userId = (string) ($data['userId'] ?? '');
-        // Keep string values for safe decimal comparisons
+
         $this->amountRequested = isset($data['amountRequested']) ? (string) $data['amountRequested'] : '0';
         $this->payableAmount = isset($data['payableAmount']) ? (string) $data['payableAmount'] : $this->amountRequested;
         $this->amountReceived = isset($data['amountReceived']) ? (string) $data['amountReceived'] : '0';

@@ -4,9 +4,6 @@ namespace PayCow;
 
 use PayCow\Exceptions\PayCowException;
 
-/**
- * PayCow SDK Configuration.
- */
 class Config
 {
     public const DEFAULT_API_BASE_URL = 'https://paycow.net';
@@ -19,12 +16,8 @@ class Config
     protected int $timeout;
     protected string $userAgent;
 
-    /**
-     * Constructor.
-     *
-     * @param array $options Configuration options.
-     * @throws PayCowException If required parameters are missing.
-     */
+
+
     public function __construct(array $options = [])
     {
         $apiKey = $options['api_key'] ?? $options['apiKey'] ?? '';

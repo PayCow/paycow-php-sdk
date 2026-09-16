@@ -7,35 +7,21 @@ use PayCow\Exceptions\ApiException;
 use PayCow\Exceptions\PayCowException;
 use PayCow\Http\HttpClientInterface;
 
-/**
- * Service managing PayCow payment operations.
- */
 class PaymentService
 {
     protected Config $config;
     protected HttpClientInterface $httpClient;
 
-    /**
-     * Constructor.
-     *
-     * @param Config $config
-     * @param HttpClientInterface $httpClient
-     */
+
+
     public function __construct(Config $config, HttpClientInterface $httpClient)
     {
         $this->config = $config;
         $this->httpClient = $httpClient;
     }
 
-    /**
-     * Create a non-custodial payment session.
-     *
-     * @param array $params Required: 'amount', 'userId', 'network'.
-     *                      Optional: 'currency', 'addressSerialNo', 'idempotencyKey'.
-     * @return PaymentSession
-     * @throws PayCowException
-     * @throws ApiException
-     */
+
+
     public function create(array $params): PaymentSession
     {
         if (empty($params['userId'])) {
@@ -43,7 +29,7 @@ class PaymentService
         }
 
         $amount = trim((string) ($params['amount'] ?? ''));
-        if ($amount === '' || !is_numeric($amount) || self::compareDecimalStrings($amount, '0') <= 0) {
+        if (!preg_match('/^(?:0|[1-9]\d*)(?:\.\d+)?$/', $amount) || self::compareDecimalStrings($amount, '0') <= 0) {
             throw new PayCowException('Invalid payment amount. Must be a positive numeric decimal value.');
         }
 
@@ -94,14 +80,8 @@ class PaymentService
         return new PaymentSession($data);
     }
 
-    /**
-     * Retrieve payment status from PayCow.
-     *
-     * @param string $sessionId PayCow payment session ID.
-     * @return PaymentStatus
-     * @throws PayCowException
-     * @throws ApiException
-     */
+
+
     public function getStatus(string $sessionId): PaymentStatus
     {
         $cleanId = trim($sessionId);
@@ -123,13 +103,8 @@ class PaymentService
         return new PaymentStatus($data);
     }
 
-    /**
-     * Compare two arbitrary precision decimal strings without floating point conversion.
-     *
-     * @param string $a
-     * @param string $b
-     * @return int -1 if $a < $b, 0 if $a == $b, 1 if $a > $b
-     */
+
+
     public static function compareDecimalStrings(string $a, string $b): int
     {
         $a = trim($a);
@@ -139,7 +114,7 @@ class PaymentService
             return 0;
         }
 
-        // Split into integer and fractional parts
+
         $partsA = explode('.', $a, 2);
         $partsB = explode('.', $b, 2);
 
