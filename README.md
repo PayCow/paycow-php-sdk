@@ -30,7 +30,7 @@ $payment = $paycow->payments()->create([
     'userId' => 'customer-2048',
     'amount' => '50.00',
     'network' => 'TRC20',
-    'idempotencyKey' => 'topup-2048-001',
+    'idempotencyKey' => 'order-2048-001',
 ]);
 
 echo $payment->getPaymentUrl();
